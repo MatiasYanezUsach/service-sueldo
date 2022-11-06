@@ -25,19 +25,19 @@ public class SueldoService {
     RestTemplate restTemplate;
 
     public Empleado empleadoFindByRut(String rut_dado){
-        Empleado empleado = restTemplate.getForObject("http://localhost:8090/empleado/byRut/" + rut_dado, Empleado.class);
+        Empleado empleado = restTemplate.getForObject("http://microservice-empleado/empleado/byRut/" + rut_dado, Empleado.class);
         return empleado;
     }
     public ArrayList<Justificado> justificadoFindByRut(String rut_dado){
-        ArrayList<Justificado> justificativos = restTemplate.getForObject("http://localhost:8091/justificativo/byRut/" + rut_dado, ArrayList.class);
+        ArrayList<Justificado> justificativos = restTemplate.getForObject("http://microservice-justificativo/justificativo/byRut/" + rut_dado, ArrayList.class);
         return justificativos;
     }
     public ArrayList<Solicitud> solicitudFindByRut(String rut_dado){
-        ArrayList<Solicitud> solicitudes = restTemplate.getForObject("http://localhost:8092/solicitud/byRut/" + rut_dado, ArrayList.class);
+        ArrayList<Solicitud> solicitudes = restTemplate.getForObject("http://microservice-solicitud/solicitud/byRut/" + rut_dado, ArrayList.class);
         return solicitudes;
     }
     public ArrayList<Marcas> marcasFindByRut(String rut_dado){
-        ArrayList<Marcas> marcas = restTemplate.getForObject("http://localhost:8093/marcas/byRut/" + rut_dado, ArrayList.class);
+        ArrayList<Marcas> marcas = restTemplate.getForObject("http://microservice-reloj/marcas/byRut/" + rut_dado, ArrayList.class);
         return marcas;
     }
     int findeMes = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
