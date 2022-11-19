@@ -30,7 +30,7 @@ public class SueldoService {
     }
 
     public ArrayList<Empleado> empleados(){
-        ArrayList<Empleado> empleados = restTemplate.getForObject("http://microservice-empleado/empleado", ArrayList.class);
+        ArrayList<Empleado> empleados = restTemplate.getForObject("http://microservice-empleado/empleado/", ArrayList.class);
         return empleados;
     }
     public ArrayList<Justificado> justificadoFindByRut(String rut_dado){
