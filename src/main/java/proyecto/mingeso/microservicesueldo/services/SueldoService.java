@@ -302,6 +302,7 @@ public class SueldoService {
         for(Empleado cantEmpleados : empleados) {
             cantidadEmpleados++;
         }
+        sueldoRepository.deleteAll();
         for(int i = 0; i < cantidadEmpleados; i++){
             SueldoEntity nuevoSueldo = crearSueldoEmpleado(empleados.get(i));
             sueldoRepository.save(nuevoSueldo);
