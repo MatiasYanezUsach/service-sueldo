@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Empleado {
+    private Long id_empleado;
     private String rut;
     private String apellidos;
     private String nombres;

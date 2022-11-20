@@ -12,6 +12,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Marcas {
+    private Long id_marca;
     @JsonFormat(pattern="yyyy/MM/dd")
     private LocalDate fecha;
     @JsonFormat(pattern="HH:mm")

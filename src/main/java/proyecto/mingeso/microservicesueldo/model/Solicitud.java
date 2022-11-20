@@ -10,6 +10,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Solicitud {
+    private Long id_solicitud;
     @JsonFormat(pattern="yyyy/MM/dd")
     private LocalDate fecha_cubridora;
     private String rut_empleado;

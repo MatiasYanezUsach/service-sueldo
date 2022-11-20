@@ -1,7 +1,9 @@
 package proyecto.mingeso.microservicesueldo.services;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import proyecto.mingeso.microservicesueldo.entities.SueldoEntity;
@@ -14,8 +16,10 @@ import proyecto.mingeso.microservicesueldo.repositories.SueldoRepository;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class SueldoService {
@@ -30,20 +34,48 @@ public class SueldoService {
     }
 
     public ArrayList<Empleado> empleados(){
-        ArrayList<Empleado> empleados = restTemplate.getForObject("http://microservice-empleado/empleado/", ArrayList.class);
-        return empleados;
+        ResponseEntity<Object[]> response = restTemplate.getForEntity("http://microservice-empleado/empleado/", Object[].class);
+        Object[] records = response.getBody();
+        if(records == null){
+            return null;
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        return (ArrayList<Empleado>) Arrays.stream(records)
+                .map(empleado -> mapper.convertValue(empleado, Empleado.class))
+                .collect(Collectors.toList());
     }
     public ArrayList<Justificado> justificadoFindByRut(String rut_dado){
-        ArrayList<Justificado> justificativos = restTemplate.getForObject("http://microservice-justificativo/justificativo/byRut/" + rut_dado, ArrayList.class);
-        return justificativos;
+        ResponseEntity<Object[]> response  = restTemplate.getForEntity("http://microservice-justificativo/justificativo/byRut/" + rut_dado,  Object[].class);
+        Object[] records = response.getBody();
+        if(records == null){
+            return null;
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        return (ArrayList<Justificado>) Arrays.stream(records)
+                .map(empleado -> mapper.convertValue(empleado, Justificado.class))
+                .collect(Collectors.toList());
     }
     public ArrayList<Solicitud> solicitudFindByRut(String rut_dado){
-        ArrayList<Solicitud> solicitudes = restTemplate.getForObject("http://microservice-solicitud/solicitud/byRut/" + rut_dado, ArrayList.class);
-        return solicitudes;
+        ResponseEntity<Object[]> response  = restTemplate.getForEntity("http://microservice-solicitud/solicitud/byRut/" + rut_dado, Object[].class);
+        Object[] records = response.getBody();
+        if(records == null){
+            return null;
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        return (ArrayList<Solicitud>) Arrays.stream(records)
+                .map(empleado -> mapper.convertValue(empleado, Solicitud.class))
+                .collect(Collectors.toList());
     }
     public ArrayList<Marcas> marcasFindByRut(String rut_dado){
-        ArrayList<Marcas> marcas = restTemplate.getForObject("http://microservice-reloj/marcas/byRut/" + rut_dado, ArrayList.class);
-        return marcas;
+        ResponseEntity<Object[]> response  = restTemplate.getForEntity("http://microservice-reloj/marcas/byRut/" + rut_dado, Object[].class);
+        Object[] records = response.getBody();
+        if(records == null){
+            return null;
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        return (ArrayList<Marcas>) Arrays.stream(records)
+                .map(empleado -> mapper.convertValue(empleado, Marcas.class))
+                .collect(Collectors.toList());
     }
     int findeMes = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
     int mesActual = Calendar.getInstance().get(Calendar.MONTH)+1;

@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Justificado {
+    private Long id_justificativo;
     @JsonFormat(pattern="yyyy/MM/dd")
     private LocalDate fecha_cubridora;
     private String rut_empleado;
