@@ -2,6 +2,7 @@ package proyecto.mingeso.microservicesueldo.services;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,8 @@ public class SueldoService {
     RestTemplate restTemplate;
 
     public Empleado empleadoFindByRut(String rut_dado){
-        Empleado empleado = restTemplate.getForObject("http://microservice-empleado/empleado/byRut/" + rut_dado, Empleado.class);
+        Empleado empleado = new Empleado();
+        empleado = restTemplate.getForObject("http://microservice-empleado/empleado/byRut/" + rut_dado, Empleado.class);
         return empleado;
     }
 
@@ -40,6 +42,7 @@ public class SueldoService {
             return null;
         }
         ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
         return (ArrayList<Empleado>) Arrays.stream(records)
                 .map(empleado -> mapper.convertValue(empleado, Empleado.class))
                 .collect(Collectors.toList());
@@ -51,6 +54,7 @@ public class SueldoService {
             return null;
         }
         ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
         return (ArrayList<Justificado>) Arrays.stream(records)
                 .map(empleado -> mapper.convertValue(empleado, Justificado.class))
                 .collect(Collectors.toList());
@@ -62,6 +66,7 @@ public class SueldoService {
             return null;
         }
         ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
         return (ArrayList<Solicitud>) Arrays.stream(records)
                 .map(empleado -> mapper.convertValue(empleado, Solicitud.class))
                 .collect(Collectors.toList());
@@ -73,6 +78,7 @@ public class SueldoService {
             return null;
         }
         ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
         return (ArrayList<Marcas>) Arrays.stream(records)
                 .map(empleado -> mapper.convertValue(empleado, Marcas.class))
                 .collect(Collectors.toList());
