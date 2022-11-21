@@ -14,6 +14,10 @@ import proyecto.mingeso.microservicesueldo.model.Marcas;
 import proyecto.mingeso.microservicesueldo.model.Solicitud;
 import proyecto.mingeso.microservicesueldo.repositories.SueldoRepository;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -303,6 +307,18 @@ public class SueldoService {
             cantidadEmpleados++;
         }
         sueldoRepository.deleteAll();
+        String url = "jdbc:mysql://localhost:3306/sueldo";
+        String userName = "root";
+        String password = "Chile&2022";
+        String truncateTableQuery = "truncate table planilla_de_sueldos";
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(url, userName, password);
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(truncateTableQuery);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         for(int i = 0; i < cantidadEmpleados; i++){
             SueldoEntity nuevoSueldo = crearSueldoEmpleado(empleados.get(i));
             sueldoRepository.save(nuevoSueldo);
