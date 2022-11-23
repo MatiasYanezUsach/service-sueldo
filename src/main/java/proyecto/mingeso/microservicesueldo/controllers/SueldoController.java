@@ -14,7 +14,6 @@ import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/sueldo")
-@CrossOrigin(origins = "*")
 public class SueldoController {
     @Autowired
     SueldoService sueldoService;
